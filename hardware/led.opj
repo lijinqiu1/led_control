@@ -1,0 +1,45 @@
+(ExpressProject ""
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (File ".\led.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (NoModify))
+  (Folder "Outputs")
+  (Folder "Referenced Projects")
+  (PartMRUSelector)
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\led.dsn")
+      (Path "Design Resources" ".\led.dsn" "SCHEMATIC1"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 0 200 0 421"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 52 1655 52 512")
+        (Scroll "-355 0")
+        (Zoom "87")
+        (Occurrence "/"))
+      (Path "F:\WORKSPACE\STM32\XIAOLONG\LED_CONTROL\LED.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "P5  KEY_LED"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -8 -31 78 1681 78 538")
+        (Scroll "36 131")
+        (Zoom "130")
+        (Occurrence "/"))
+      (Path "F:\WORKSPACE\STM32\XIAOLONG\LED_CONTROL\LED.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "P6  GPIO_EX")))
+  (MPSSessionName "Administrator"))
