@@ -141,7 +141,6 @@ uint8_t uart_print[] = {
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  uint8_t i;
   uint8_t cur_key = 0;
   uint8_t last_key = 0;
   uint32_t last_tick = 0;
@@ -172,6 +171,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim7);
   PCA9557_Init();
+  UART_Receive_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -182,63 +182,66 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-		if (play_video_end_flag == PLAY_VIDEO_COMPELETED)
+//		if (play_video_end_flag == PLAY_VIDEO_COMPELETED)
+//		{
+//			for (cur_key = 0;cur_key < KEY_COUNT;cur_key++)
+//			{
+//				if (HAL_GPIO_ReadPin(KEY_Gpio[cur_key].Port,KEY_Gpio[cur_key].Pin) == GPIO_PIN_RESET)
+//				{
+//					break;
+//				}
+//			}
+//			if (last_key != cur_key)
+//			{
+//				last_key = cur_key;
+//				last_tick = HAL_GetTick();
+//			}
+//			else
+//			{
+//				if (HAL_GetTick() > (last_tick + 10))
+//				{
+//					if (cur_key < KEY_COUNT)
+//					{
+//						if (pulse == 0)
+//						{
+//							//打开建筑灯
+//							HAL_GPIO_WritePin(LED_Gpio[cur_key].Port,LED_Gpio[cur_key].Pin,GPIO_PIN_SET);
+//							//打开按键灯
+//							key_led.gpio = (uint32_t )(1 << cur_key);
+//							PCA9557_WRITE(key_led);
+//							HAL_UART_Transmit(&huart1,&uart_print[cur_key],1,HAL_MAX_DELAY);
+//							play_video_end_flag = PLAY_VIDEO_ING;
+//							play_video_outtimer = 0;
+//							pulse = 1;
+//						}
+//					}
+//					else
+//					{
+//						pulse = 0;
+//					}
+//				}
+//			}
+//		}
+//		if (play_video_last_end_flag != play_video_end_flag)
+//		{
+//			if (play_video_last_end_flag == PLAY_VIDEO_ING)
+//			{
+//				//关闭建筑灯
+//				HAL_GPIO_WritePin(LED_Gpio[cur_key].Port,LED_Gpio[cur_key].Pin,GPIO_PIN_SET);
+//				//关闭按键灯
+//				key_led.gpio = 0;
+//				PCA9557_WRITE(key_led);
+//			}
+//			play_video_last_end_flag = play_video_end_flag;
+//		}
+		key_led.buf[0] = 0xff;
+		key_led.buf[1] = 0xff;
+		key_led.buf[2] = 0xff;
+		PCA9557_WRITE(key_led);
+		for (cur_key = 0;cur_key < KEY_COUNT;cur_key++)
 		{
-			for (i = 0;i < KEY_COUNT;i++)
-			{
-				if (HAL_GPIO_ReadPin(KEY_Gpio[i].Port,KEY_Gpio[i].Pin) == GPIO_PIN_RESET)
-				{
-					cur_key = i;
-					break;
-				}
-			}
-			if (last_key != cur_key)
-			{
-				last_key = cur_key;
-				last_tick = HAL_GetTick();
-			}
-			else
-			{
-				if (HAL_GetTick() > (last_tick + 10))
-				{
-					if (cur_key < KEY_COUNT)
-					{
-						if (pulse == 0)
-						{
-							//打开建筑灯
-							HAL_GPIO_WritePin(LED_Gpio[cur_key].Port,LED_Gpio[cur_key].Pin,GPIO_PIN_SET);
-							//打开按键灯
-							key_led.gpio = (uint32_t )(1 << cur_key);
-							PCA9557_WRITE(key_led);
-							HAL_UART_Transmit(&huart1,&uart_print[cur_key],1,HAL_MAX_DELAY);
-							play_video_end_flag = PLAY_VIDEO_ING;
-							play_video_outtimer = 0;
-							pulse = 1;
-						}
-					}
-					else
-					{
-						pulse = 0;
-					}
-				}
-			}
+			HAL_GPIO_WritePin(LED_Gpio[cur_key].Port,LED_Gpio[cur_key].Pin,GPIO_PIN_SET);
 		}
-		if (play_video_last_end_flag != play_video_end_flag)
-		{
-			if (play_video_last_end_flag == PLAY_VIDEO_ING)
-			{
-				//关闭建筑灯
-				HAL_GPIO_WritePin(LED_Gpio[cur_key].Port,LED_Gpio[cur_key].Pin,GPIO_PIN_SET);
-				//关闭按键灯
-				key_led.gpio = 0;
-				PCA9557_WRITE(key_led);
-			}
-			play_video_last_end_flag = play_video_end_flag;
-		}
-//		key_led.buf[0] = 0x00;
-//		key_led.buf[1] = 0xff;
-//		key_led.buf[2] = 0x00;
-//		PCA9557_WRITE(key_led);
   }
   
   /* USER CODE END 3 */

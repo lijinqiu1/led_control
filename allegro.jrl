@@ -1,0 +1,27 @@
+\t (00:00:13) allegro 16.6 P004 (v16-6-112G) Windows 32
+\t (00:00:13)     Journal start - Thu Oct 18 16:16:54 2018
+\t (00:00:13)         Host=WIN-GRDT4TIR2EF User=Administrator Pid=11868 CPUs=12
+\t (00:00:13) 
+   (00:00:13) Loading axlcore.cxt 
+\t (00:00:15) Starting new design...
+   (00:00:15) Loading cmds.cxt 
+\i (00:00:15) trapsize 1084
+\i (00:00:15) trapsize 1051
+\i (00:00:15) trapsize 1089
+\i (00:00:15) trapsize 1138
+\i (00:00:17) trapsize 904
+\i (00:00:17) trapsize 1256
+\i (00:00:18) generaledit 
+\i (00:00:22) pick grid 16799.1 8688.3
+\t (00:00:22) last pick:  16800.0  8700.0
+\i (00:00:27) opencd F:/workspace/STM32/xiaolong/led_control/LED_V1.0-1013-1.brd 
+\i (00:00:28) fillin confirm
+\i (00:00:32) fillin "F:\workspace\STM32\xiaolong\led_control\hardware\LED_V1.0-1013-1.brd"
+\i (00:00:32) cd "F:\workspace\STM32\xiaolong\led_control\hardware"
+\t (00:00:32) Opening existing design...
+\w (00:00:32) WARNING(SPMHDB-214): Allegro PCB Design GXL (legacy) opening an Allegro Editor design.
+\w (00:00:32) WARNING(SPMHDB-213): DRC set to "out of date". This product supports a different DRC set than last product used on drawing.
+\w (00:00:32) WARNING(SPMHOD-34): Design was last saved by lower capability product (Allegro Editor). DRC is set out-of-date, you may wish to update DRC to reflect current rules.
+\i (00:00:33) fillin confirm
+\i (00:00:33) trapsize 37779
+\t (00:00:33)     Journal end - Thu Oct 18 16:17:14 2018

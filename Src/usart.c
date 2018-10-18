@@ -216,6 +216,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		{
 			play_video_end_flag = PLAY_VIDEO_COMPELETED;
 		}
+		HAL_UART_Transmit(&huart1,&play_video_receive_buff,1,HAL_MAX_DELAY);
 		HAL_UART_Receive_IT(&huart1,&play_video_receive_buff,1);
 	}
 }
