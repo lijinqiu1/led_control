@@ -7,7 +7,7 @@ static void DelayUs(uint16_t us)
 {
     uint8_t i = 0;
 	for(;us>0;us--)
-        for(i=0;i<40;i++);
+        for(i=0;i<100;i++);
 }
 
 
@@ -37,6 +37,7 @@ void Stop(void)
 {
 	IIC_SDA_OUT();
 	IIC_SDA_LOW();
+	DelayUs(5);
 	IIC_SCK_HIGH();
 	DelayUs(5);
 	IIC_SDA_HIGH();
@@ -83,6 +84,7 @@ void WriteI2C(uint8_t   date)
 { 
 	unsigned char i;
 	IIC_SDA_OUT();
+	DelayUs(5); 
 	/* Sending data one bit at a time (MS bit first)  */
 	for (i=0; i<8; i++)
 	{
@@ -97,6 +99,7 @@ void WriteI2C(uint8_t   date)
 		/* Prepare to send next bit */
 		date <<= 1;    
 		
+		DelayUs(1); 
 		/* Generate a clock cycle */
 		IIC_SCK_HIGH();
 		DelayUs(5); 
@@ -140,16 +143,19 @@ void WriteByte(uint8_t dev_addr,uint8_t startAddress,uint8_t datum)
 } 
 void PCA9557_Init(void)
 {
+	WriteByte(PCA9557_KEY_LED_U5_ADDRESS,PCA9557_POLARITY_INVERSION_REGISTER,0x00);
+	WriteByte(PCA9557_KEY_LED_U4_ADDRESS,PCA9557_POLARITY_INVERSION_REGISTER,0x00);
+	WriteByte(PCA9557_KEY_LED_U3_ADDRESS,PCA9557_POLARITY_INVERSION_REGISTER,0x00);
 	//ÉèÖÃpcaÎªÊä³ö
-	WriteByte(PCA9557_KEY_LED_1_8_ADDRESS,PCA9557_CONFIGURATION_REGISTER,0x00);
-	WriteByte(PCA9557_KEY_LED_9_16_ADDRESS,PCA9557_CONFIGURATION_REGISTER,0x00);
-	WriteByte(PCA9557_KEY_LED_17_24_ADDRESS,PCA9557_CONFIGURATION_REGISTER,0x00);
+	WriteByte(PCA9557_KEY_LED_U5_ADDRESS,PCA9557_CONFIGURATION_REGISTER,0x00);
+	WriteByte(PCA9557_KEY_LED_U4_ADDRESS,PCA9557_CONFIGURATION_REGISTER,0x00);
+	WriteByte(PCA9557_KEY_LED_U3_ADDRESS,PCA9557_CONFIGURATION_REGISTER,0x00);
 }
 
 void PCA9557_WRITE(PCA9557_GPIO_t key_gpio)
 {
-	WriteByte(PCA9557_KEY_LED_1_8_ADDRESS,PCA9557_OUTPUT_PORT_REGISTER,key_gpio.buf[0]);
-	WriteByte(PCA9557_KEY_LED_9_16_ADDRESS,PCA9557_OUTPUT_PORT_REGISTER,key_gpio.buf[1]);
-	WriteByte(PCA9557_KEY_LED_17_24_ADDRESS,PCA9557_OUTPUT_PORT_REGISTER,key_gpio.buf[2]);
+	WriteByte(PCA9557_KEY_LED_U5_ADDRESS,PCA9557_OUTPUT_PORT_REGISTER,key_gpio.buf[0]);
+	WriteByte(PCA9557_KEY_LED_U4_ADDRESS,PCA9557_OUTPUT_PORT_REGISTER,key_gpio.buf[1]);
+	WriteByte(PCA9557_KEY_LED_U3_ADDRESS,PCA9557_OUTPUT_PORT_REGISTER,key_gpio.buf[2]);
 }
 

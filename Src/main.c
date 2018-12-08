@@ -67,30 +67,34 @@ typedef struct
 	uint16_t Pin;
 }control_gpio_t;
 
+uint8_t key_led_pos[] = {
+		 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,
+		13,14,15,16,17,18,19,20,21,22,23,12,
+};
 control_gpio_t KEY_Gpio[] = {
-	{PORT_KEY(1), PIN_KEY(1)},
-	{PORT_KEY(2), PIN_KEY(2)},
-	{PORT_KEY(3), PIN_KEY(3)},
-	{PORT_KEY(4), PIN_KEY(4)},
-	{PORT_KEY(5), PIN_KEY(5)},
-	{PORT_KEY(6), PIN_KEY(6)},
-	{PORT_KEY(7), PIN_KEY(7)},
-	{PORT_KEY(8), PIN_KEY(8)},
+	{PORT_KEY(12), PIN_KEY(12)},
+	{PORT_KEY(11), PIN_KEY(11)},
+	{PORT_KEY(10), PIN_KEY(10)},
 	{PORT_KEY(9), PIN_KEY(9)},
-	{PORT_KEY(10),PIN_KEY(10)},
-	{PORT_KEY(11),PIN_KEY(11)},
-	{PORT_KEY(12),PIN_KEY(12)},
-	{PORT_KEY(13),PIN_KEY(13)},
-	{PORT_KEY(14),PIN_KEY(14)},
-	{PORT_KEY(15),PIN_KEY(15)},
-	{PORT_KEY(16),PIN_KEY(16)},
-	{PORT_KEY(17),PIN_KEY(17)},
-	{PORT_KEY(18),PIN_KEY(18)},
-	{PORT_KEY(19),PIN_KEY(19)},
-	{PORT_KEY(20),PIN_KEY(20)},
-	{PORT_KEY(21),PIN_KEY(21)},
-	{PORT_KEY(22),PIN_KEY(22)},
+	{PORT_KEY(8), PIN_KEY(8)},
+	{PORT_KEY(7), PIN_KEY(7)},
+	{PORT_KEY(6), PIN_KEY(6)},
+	{PORT_KEY(5), PIN_KEY(5)},
+	{PORT_KEY(4), PIN_KEY(4)},
+	{PORT_KEY(3),PIN_KEY(3)},
+	{PORT_KEY(2),PIN_KEY(2)},
+	{PORT_KEY(1),PIN_KEY(1)},
 	{PORT_KEY(23),PIN_KEY(23)},
+	{PORT_KEY(22),PIN_KEY(22)},
+	{PORT_KEY(21),PIN_KEY(21)},
+	{PORT_KEY(20),PIN_KEY(20)},
+	{PORT_KEY(19),PIN_KEY(19)},
+	{PORT_KEY(18),PIN_KEY(18)},
+	{PORT_KEY(17),PIN_KEY(17)},
+	{PORT_KEY(16),PIN_KEY(16)},
+	{PORT_KEY(15),PIN_KEY(15)},
+	{PORT_KEY(14),PIN_KEY(14)},
+	{PORT_KEY(13),PIN_KEY(13)},
 	{PORT_KEY(24),PIN_KEY(24)}
 };
 
@@ -108,7 +112,6 @@ control_gpio_t LED_Gpio[] = {
 	{PORT_LED(10),PIN_LED(10)},
 	{PORT_LED(11),PIN_LED(11)},
 	{PORT_LED(12),PIN_LED(12)},
-	{PORT_LED(13),PIN_LED(13)},
 	{PORT_LED(14),PIN_LED(14)},
 	{PORT_LED(15),PIN_LED(15)},
 	{PORT_LED(16),PIN_LED(16)},
@@ -119,7 +122,8 @@ control_gpio_t LED_Gpio[] = {
 	{PORT_LED(21),PIN_LED(21)},
 	{PORT_LED(22),PIN_LED(22)},
 	{PORT_LED(23),PIN_LED(23)},
-	{PORT_LED(24),PIN_LED(24)}
+	{PORT_LED(24),PIN_LED(24)},
+	{PORT_LED(13),PIN_LED(13)}
 };
 
 uint8_t uart_print[] = {
@@ -141,10 +145,12 @@ uint8_t uart_print[] = {
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  uint8_t i;
   uint8_t cur_key = 0;
   uint8_t last_key = 0;
   uint32_t last_tick = 0;
   uint8_t pulse = 0;
+	uint8_t test = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -153,7 +159,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -182,66 +188,101 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-//		if (play_video_end_flag == PLAY_VIDEO_COMPELETED)
-//		{
-//			for (cur_key = 0;cur_key < KEY_COUNT;cur_key++)
-//			{
-//				if (HAL_GPIO_ReadPin(KEY_Gpio[cur_key].Port,KEY_Gpio[cur_key].Pin) == GPIO_PIN_RESET)
-//				{
-//					break;
-//				}
-//			}
-//			if (last_key != cur_key)
-//			{
-//				last_key = cur_key;
-//				last_tick = HAL_GetTick();
-//			}
-//			else
-//			{
-//				if (HAL_GetTick() > (last_tick + 10))
-//				{
-//					if (cur_key < KEY_COUNT)
-//					{
-//						if (pulse == 0)
-//						{
-//							//打开建筑灯
-//							HAL_GPIO_WritePin(LED_Gpio[cur_key].Port,LED_Gpio[cur_key].Pin,GPIO_PIN_SET);
-//							//打开按键灯
-//							key_led.gpio = (uint32_t )(1 << cur_key);
-//							PCA9557_WRITE(key_led);
-//							HAL_UART_Transmit(&huart1,&uart_print[cur_key],1,HAL_MAX_DELAY);
-//							play_video_end_flag = PLAY_VIDEO_ING;
-//							play_video_outtimer = 0;
-//							pulse = 1;
-//						}
-//					}
-//					else
-//					{
-//						pulse = 0;
-//					}
-//				}
-//			}
-//		}
-//		if (play_video_last_end_flag != play_video_end_flag)
-//		{
-//			if (play_video_last_end_flag == PLAY_VIDEO_ING)
-//			{
-//				//关闭建筑灯
-//				HAL_GPIO_WritePin(LED_Gpio[cur_key].Port,LED_Gpio[cur_key].Pin,GPIO_PIN_SET);
-//				//关闭按键灯
-//				key_led.gpio = 0;
-//				PCA9557_WRITE(key_led);
-//			}
-//			play_video_last_end_flag = play_video_end_flag;
-//		}
-		key_led.buf[0] = 0xff;
-		key_led.buf[1] = 0xff;
-		key_led.buf[2] = 0xff;
-		PCA9557_WRITE(key_led);
-		for (cur_key = 0;cur_key < KEY_COUNT;cur_key++)
+		if (play_video_end_flag == PLAY_VIDEO_COMPELETED)
 		{
-			HAL_GPIO_WritePin(LED_Gpio[cur_key].Port,LED_Gpio[cur_key].Pin,GPIO_PIN_SET);
+			for (cur_key = 0;cur_key < KEY_COUNT;cur_key++)
+			{
+				if (HAL_GPIO_ReadPin(KEY_Gpio[cur_key].Port,KEY_Gpio[cur_key].Pin) == GPIO_PIN_RESET)
+				{
+					break;
+				}
+			}
+			if (last_key != cur_key)
+			{
+				last_key = cur_key;
+				last_tick = HAL_GetTick();
+			}
+			else
+			{
+				if (HAL_GetTick() > (last_tick + 10))
+				{
+					if (cur_key < KEY_COUNT)
+					{
+						if (pulse == 0)
+						{
+							//打开建筑灯
+							HAL_GPIO_WritePin(LED_Gpio[cur_key].Port,LED_Gpio[cur_key].Pin,GPIO_PIN_SET);
+							//打开按键灯
+							key_led.gpio = (uint32_t )(1 << key_led_pos[cur_key]);
+							PCA9557_WRITE(key_led);
+							HAL_UART_Transmit(&huart1,&uart_print[cur_key],1,HAL_MAX_DELAY);
+							play_video_end_flag = PLAY_VIDEO_ING;
+							play_video_outtimer = 0;
+							pulse = 1;
+						}
+					}
+					else
+					{
+						pulse = 0;
+					}
+				}
+			}
 		}
+		if (play_video_last_end_flag != play_video_end_flag)
+		{
+			if (play_video_last_end_flag == PLAY_VIDEO_ING)
+			{
+				//关闭建筑灯
+				for ( i = 0 ; i < KEY_COUNT; i++)
+					HAL_GPIO_WritePin(LED_Gpio[i].Port,LED_Gpio[i].Pin,GPIO_PIN_RESET);
+				//关闭按键灯
+				key_led.gpio = 0;
+				PCA9557_WRITE(key_led);
+			}
+			play_video_last_end_flag = play_video_end_flag;
+		}
+		
+//		for (cur_key = 0;cur_key < KEY_COUNT;cur_key++)
+//		{
+//			if (HAL_GPIO_ReadPin(KEY_Gpio[cur_key].Port,KEY_Gpio[cur_key].Pin) == GPIO_PIN_RESET)
+//			{
+//				break;
+//			}
+//		}
+//		if (last_key != cur_key)
+//		{
+//			last_key = cur_key;
+//			last_tick = HAL_GetTick();
+//		}
+//		else
+//		{
+//			if (HAL_GetTick() > (last_tick + 10))
+//			{
+//				if (cur_key < KEY_COUNT)
+//				{
+//					if (pulse == 0)
+//					{
+//						//打开建筑灯
+//						HAL_GPIO_WritePin(LED_Gpio[cur_key].Port,LED_Gpio[cur_key].Pin,GPIO_PIN_SET);
+//						//打开按键灯
+//						key_led.gpio = (uint32_t )(1 << key_led_pos[cur_key]);
+//						PCA9557_WRITE(key_led);
+//						HAL_UART_Transmit(&huart1,&uart_print[cur_key],1,HAL_MAX_DELAY);
+//						pulse = 1;
+//					}
+//				}
+//				else
+//				{
+//					pulse = 0;//				
+//					//关闭建筑灯
+//					for ( i = 0 ; i < KEY_COUNT; i++)
+//						HAL_GPIO_WritePin(LED_Gpio[i].Port,LED_Gpio[i].Pin,GPIO_PIN_RESET);
+//					//关闭按键灯
+//					key_led.gpio = 0;
+//					PCA9557_WRITE(key_led);
+//				}
+//			}
+//		}
   }
   
   /* USER CODE END 3 */

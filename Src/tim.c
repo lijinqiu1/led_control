@@ -119,11 +119,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
    */
   if (htim == &htim7)
   {
-	  if ((play_video_end_flag == PLAY_VIDEO_ING)&( play_video_outtimer ++ > PLAY_VOIDEO_OUTTIME))
-	  {
-		  play_video_outtimer = 0;
-		  play_video_end_flag = PLAY_VIDEO_COMPELETED;
-	  }
+//	  if ((play_video_end_flag == PLAY_VIDEO_ING)&( play_video_outtimer ++ > PLAY_VOIDEO_OUTTIME))
+//	  {
+//		  play_video_outtimer = 0;
+//		  play_video_end_flag = PLAY_VIDEO_COMPELETED;
+//	  }
 	  HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
   }
 }
